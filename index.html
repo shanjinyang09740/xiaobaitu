@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	
+</head>
+<body>
+	<canvas id="cas" width="800" height="500" style="border:1px solid #ccc;"></canvas>
+	<script>
+	//上38 下40 左37 右39
+		var cas=document.getElementById('cas');
+		var ctx=cas.getContext('2d');
+
+		var img=new Image;
+		img.src='img/rabbit.png';
+		
+
+		onload=function(){
+			var width=img.width/4;
+			var height=img.height/4;
+			var x=cas.width/2-width/2;
+			var y=cas.height/2-height/2;
+			var speed=10;
+			var indexX=0;
+			var indexY=0;
+			function render(key){
+				cas.width=cas.width;
+				ctx.drawImage(img,indexX*width,indexY*height,width,height,x,y,(y+50)/cas.height*width,(y+50)/cas.height*height);
+
+				if(key==37){
+					indexY=1;
+					x-=speed;
+					indexX++;
+				}else if(key==38){
+					indexY=3;
+					y-=speed;
+					indexX++;
+				}else if(key==39){
+					indexY=2;
+					x+=speed;
+					indexX++;
+				}else if(key==40){
+					indexY=0;
+					y+=speed;
+					indexX++;
+			}
+			if(indexX==4){
+				indexX=0;
+			}
+
+		}
+		render();
+
+		document.onkeydown=function(e){
+			console.log(e.keyCode);
+			e=e||window.event;
+			switch(e.keyCode){
+				case 37:
+					render(37);
+					break;
+
+				case 38:
+					render(38);
+					break;
+
+				case 39:
+					render(39);
+					break;
+
+				case 40:
+					render(40);
+					break;	
+			}
+		}
+	}
+
+
+	</script>
+
+
+
+
+</body>
+</html>
